@@ -92,7 +92,12 @@ export class HomePage {
   }
 
   instaShare(){
-
+    this.socialSharing.shareViaInstagram("This is awesome", this.base64Image).then(() => {
+      // Sharing via email is possible
+      this.message="Uploaded to Instagram"
+    }).catch(() => {
+      // Sharing via email is not possible
+    });
   }
 
 
