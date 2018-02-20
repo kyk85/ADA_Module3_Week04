@@ -25,14 +25,19 @@ export class HomePage {
   location
   base64Image
   message
+  address
+  lat
+  long
 
   getLocation(){
     this.geolocation.getCurrentPosition().then((resp) => {
       // resp.coords.latitude
       // resp.coords.longitude
-      this.location=resp.coords.latitude + ", " + resp.coords.longitude
+      this.lat=resp.coords.latitude
+      this.long=resp.coords.longitude
+      this.location=this.lat + ", " + this.long
       this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude)
-      .then((result: NativeGeocoderReverseResult) => console.log(JSON.stringify(result)))
+      .then((result: NativeGeocoderReverseResult) => this.address=JSON.stringify(result))
       .catch((error: any) => console.log(error));
      }).catch((error) => {
        console.log('Error getting location', error);
