@@ -36,7 +36,7 @@ export class HomePage {
       this.lat=resp.coords.latitude
       this.long=resp.coords.longitude
       this.location=this.lat + ", " + this.long
-      this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude)
+      this.nativeGeocoder.reverseGeocode(this.lat, this.long)
       .then((result: NativeGeocoderReverseResult) => this.address=JSON.stringify(result))
       .catch((error: any) => console.log(error));
      }).catch((error) => {
