@@ -87,4 +87,5 @@
     <plugin name="cordova-plugin-camera" spec="^4.0.2" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
     <plugin name="cordova-plugin-nativegeocoder" spec="^3.0.0" />
+    <engine name="android" spec="7.0.0" />
 </widget>
