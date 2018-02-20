@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
+import { ActionSheetController } from 'ionic-angular'
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { SocialSharing } from '@ionic-native/social-sharing';
@@ -11,12 +12,17 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private geolocation:Geolocation, public camera:Camera, public socialSharing:SocialSharing) {
+  constructor(public navCtrl: NavController,
+     private geolocation:Geolocation,
+     public camera:Camera,
+     public socialSharing:SocialSharing,
+     public actionSheetCtrl: ActionSheetController) {
 
   }
 
   location
   base64Image
+  message
 
   getLocation(){
     this.geolocation.getCurrentPosition().then((resp) => {
@@ -45,14 +51,48 @@ export class HomePage {
      });
   }
 
-  shareInstagram(){
-    this.socialSharing.shareViaInstagram("message", "image").then(() => {
-      // Success!
-    }).catch(() => {
-      // Error!
+  sharePhoto(){
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'How would you like to share your image?',
+      buttons: [
+        {
+          text: 'Facebook',
+          //role: 'destructive',
+          handler: () => {
+            this.facebookShare();
+            //console.log('Destructive clicked');
+          }
+        },
+        {
+          text: 'Instagram',
+          handler: () => {
+            this.instaShare();
+            //console.log('Archive clicked');
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            //console.log('Cancel clicked');
+          }
+        }
+      ]
     });
+    actionSheet.present();
+  }
 
-    
+  facebookShare(){
+    this.socialSharing.shareViaFacebook("This is awesome", this.base64Image).then(() => {
+      // Sharing via email is possible
+      this.message="Uploaded to Facebook"
+    }).catch(() => {
+      // Sharing via email is not possible
+    });
+  }
+
+  instaShare(){
+
   }
 
 
