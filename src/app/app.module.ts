@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera } from '@ionic-native/camera';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Geolocation,
     Camera,
-    SocialSharing  
+    SocialSharing,
+    NativeGeocoder  
   ]
 })
 export class AppModule {}

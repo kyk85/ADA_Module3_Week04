@@ -5,6 +5,7 @@ import { ActionSheetController } from 'ionic-angular'
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
 
 @Component({
   selector: 'page-home',
@@ -13,10 +14,11 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 export class HomePage {
 
   constructor(public navCtrl: NavController,
-     private geolocation:Geolocation,
-     public camera:Camera,
-     public socialSharing:SocialSharing,
-     public actionSheetCtrl: ActionSheetController) {
+    private geolocation:Geolocation,
+    public camera:Camera,
+    public socialSharing:SocialSharing,
+    public actionSheetCtrl: ActionSheetController,
+    public nativeGeocoder: NativeGeocoder ) {
 
   }
 
@@ -29,6 +31,9 @@ export class HomePage {
       // resp.coords.latitude
       // resp.coords.longitude
       this.location=resp.coords.latitude + ", " + resp.coords.longitude
+      this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude)
+      .then((result: NativeGeocoderReverseResult) => console.log(JSON.stringify(result)))
+      .catch((error: any) => console.log(error));
      }).catch((error) => {
        console.log('Error getting location', error);
      });
