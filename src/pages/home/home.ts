@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @Component({
   selector: 'page-home',
@@ -10,7 +11,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private geolocation:Geolocation, public camera:Camera) {
+  constructor(public navCtrl: NavController, private geolocation:Geolocation, public camera:Camera, public socialSharing:SocialSharing) {
 
   }
 
@@ -42,6 +43,16 @@ export class HomePage {
      }, (err) => {
       // Handle error
      });
+  }
+
+  shareInstagram(){
+    this.socialSharing.shareViaInstagram("message", "image").then(() => {
+      // Success!
+    }).catch(() => {
+      // Error!
+    });
+
+    
   }
 
 
